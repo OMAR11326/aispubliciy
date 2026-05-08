@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#224565">
+<title>AIS Publicity — Agence de Communication & Conseil Digital</title>
+<meta name="description" content="AIS Publicity — Agence de Communication & Conseil Digital.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#224565;--navy-dk:#162e45;--navy-lt:#2d5a82;--navy-xlt:#3d7aab;
+  --ivory:#f2f2f2;--white:#ffffff;
+  --g1:#f8f9fb;--g2:#e8edf3;--g3:#9ba8b5;--g4:#6b7a8d;
+  --green:#22c55e;--green-dk:#16a34a;
+  --sh-sm:0 2px 12px rgba(34,69,101,.08);
+  --sh-md:0 8px 32px rgba(34,69,101,.14);
+  --sh-lg:0 20px 60px rgba(34,69,101,.2);
+  --r:18px;--r-sm:12px;
+  --ease:cubic-bezier(.25,.46,.45,.94);
+}
+[data-theme="dark"]{
+  --ivory:#0c1a28;--white:#112233;
+  --g1:#162d42;--g2:#1e3a52;--g3:#7a97b2;--g4:#a8c0d4;
+  --sh-sm:0 2px 12px rgba(0,0,0,.35);
+  --sh-md:0 8px 32px rgba(0,0,0,.45);
+  --sh-lg:0 20px 60px rgba(0,0,0,.55);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans','Inter',sans-serif;
+  background:var(--ivory);color:var(--navy);
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  transition:background .4s var(--ease),color .4s var(--ease);
+}
+
+/* THEME BTN */
+.theme-btn{
+  position:fixed;top:16px;right:16px;z-index:999;
+  width:42px;height:42px;
+  background:rgba(255,255,255,.88);backdrop-filter:blur(16px);
+  border:1px solid var(--g2);border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--sh-sm);transition:transform .25s var(--ease),box-shadow .25s;
+  font-size:18px;
+}
+.theme-btn:hover{transform:scale(1.08);box-shadow:var(--sh-md)}
+[data-theme="dark"] .theme-btn{background:rgba(22,46,69,.88)}
+
+/* CANVAS */
+#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.3}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:1;
+  min-height:100svh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:88px 24px 56px;text-align:center;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 90% 70% at 50% 10%, rgba(34,69,101,.07) 0%, transparent 70%);
+}
+
+/* Logo */
+.logo-wrap{
+  margin-bottom:28px;
+  opacity:0;transform:translateY(28px) scale(.92);
+  animation:fadeUp .95s var(--ease) .1s forwards;
+}
+.logo-ring{
+  width:104px;height:104px;border-radius:30px;
+  background:linear-gradient(145deg,var(--navy) 0%,var(--navy-lt) 60%,var(--navy-xlt) 100%);
+  display:flex;align-items:center;justify-content:center;margin:0 auto;
+  box-shadow:0 14px 48px rgba(34,69,101,.32),0 0 0 1.5px rgba(255,255,255,.15) inset;
+  animation:logoPulse 5s ease-in-out 1.5s infinite;
+  position:relative;overflow:hidden;
+}
+.logo-ring::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 50%);
+  animation:shimmer 4s linear 2s infinite;
+}
+@keyframes shimmer{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes logoPulse{
+  0%,100%{box-shadow:0 14px 48px rgba(34,69,101,.32),0 0 0 1.5px rgba(255,255,255,.15) inset}
+  50%{box-shadow:0 20px 64px rgba(34,69,101,.42),0 0 0 1.5px rgba(255,255,255,.2) inset,0 0 0 10px rgba(34,69,101,.06)}
+}
+.logo-ring svg{width:64px;height:64px;position:relative;z-index:1}
+
+.brand-name{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(34px,9vw,52px);font-weight:800;
+  letter-spacing:-.035em;color:var(--navy);line-height:1;
+  opacity:0;transform:translateY(20px);
+  animation:fadeUp .8s var(--ease) .3s forwards;
+}
+[data-theme="dark"] .brand-name{color:#ddeeff}
+
+.brand-sub{
+  font-size:clamp(12px,3.2vw,15px);font-weight:400;
+  color:var(--g4);letter-spacing:.06em;text-transform:uppercase;
+  margin-top:9px;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp .8s var(--ease) .46s forwards;
+}
+
+.divider{
+  width:44px;height:3px;
+  background:linear-gradient(90deg,var(--navy),var(--navy-xlt));
+  border-radius:2px;margin:26px auto;
+  opacity:0;animation:fadeUp .6s var(--ease) .58s forwards;
+}
+
+.hero-tagline{
+  font-size:clamp(15px,4vw,18px);font-weight:300;
+  color:var(--g4);max-width:310px;line-height:1.65;
+  opacity:0;transform:translateY(14px);
+  animation:fadeUp .8s var(--ease) .68s forwards;
+}
+
+.hero-ctas{
+  display:flex;flex-direction:column;gap:13px;
+  margin-top:38px;width:100%;max-width:328px;
+  opacity:0;transform:translateY(16px);
+  animation:fadeUp .8s var(--ease) .84s forwards;
+}
+
+/* ── BUTTONS ── */
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:17px 26px;border-radius:15px;border:none;cursor:pointer;
+  font-family:inherit;font-size:15px;font-weight:600;letter-spacing:-.01em;
+  text-decoration:none;position:relative;overflow:hidden;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .2s}
+.btn:hover::after{background:rgba(255,255,255,.07)}
+.btn:hover{transform:translateY(-2px) scale(1.02)}
+.btn:active{transform:translateY(0) scale(.985)}
+
+.btn-primary{
+  background:linear-gradient(140deg,var(--navy) 0%,var(--navy-lt) 100%);
+  color:#fff;box-shadow:0 8px 28px rgba(34,69,101,.32);
+}
+.btn-primary:hover{box-shadow:0 14px 40px rgba(34,69,101,.44)}
+
+.btn-green{
+  background:linear-gradient(140deg,#2ecc71 0%,var(--green-dk) 100%);
+  color:#fff;box-shadow:0 8px 28px rgba(34,197,94,.28);
+}
+.btn-green:hover{box-shadow:0 14px 40px rgba(34,197,94,.4)}
+
+.btn-ghost{
+  background:var(--white);border:1.5px solid var(--g2);
+  color:var(--navy);box-shadow:var(--sh-sm);
+}
+[data-theme="dark"] .btn-ghost{color:#ddeeff}
+.btn-ghost:hover{border-color:var(--navy);box-shadow:var(--sh-md)}
+
+.btn-icon{font-size:17px;flex-shrink:0}
+
+/* ── SCROLL HINT ── */
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  opacity:0;animation:fadeUp .6s var(--ease) 1.5s forwards;
+}
+.scroll-hint span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--g3)}
+.scroll-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--g3);
+  animation:bounce 1.8s ease-in-out infinite;
+}
+@keyframes bounce{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(7px);opacity:1}}
+
+/* GEO */
+.geo{position:absolute;pointer-events:none;z-index:0;opacity:.03;border-radius:50%}
+.geo-1{width:320px;height:320px;background:var(--navy);top:-100px;right:-100px}
+.geo-2{width:200px;height:200px;background:var(--navy);bottom:30px;left:-70px}
+.geo-3{width:120px;height:120px;border:2px solid var(--navy);opacity:.05;bottom:120px;right:30px}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1;padding:76px 20px}
+
+.section-label{
+  font-size:11px;font-weight:600;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--navy);opacity:.45;margin-bottom:10px;
+}
+.section-title{
+  font-family:'Inter',sans-serif;
+  font-size:clamp(26px,6.5vw,38px);font-weight:700;
+  letter-spacing:-.03em;color:var(--navy);line-height:1.15;
+}
+[data-theme="dark"] .section-title{color:#ddeeff}
+
+/* ── SERVICES ── */
+.services{background:var(--white)}
+.services-header{text-align:center;margin-bottom:44px}
+
+.services-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:14px;max-width:480px;margin:0 auto;
+}
+.service-card{
+  background:var(--g1);border:1px solid var(--g2);
+  border-radius:var(--r);padding:24px 18px;
+  display:flex;flex-direction:column;gap:11px;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s;
+  cursor:default;
+  opacity:0;transform:translateY(22px);
+}
+.service-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:var(--sh-md);background:var(--white)}
+[data-theme="dark"] .service-card{background:var(--g1);border-color:var(--g2)}
+[data-theme="dark"] .service-card:hover{background:var(--g2)}
+
+.service-icon{
+  width:44px;height:44px;
+  background:linear-gradient(135deg,rgba(34,69,101,.1),rgba(45,90,130,.06));
+  border-radius:13px;display:flex;align-items:center;justify-content:center;
+  font-size:22px;transition:transform .3s var(--ease);
+}
+.service-card:hover .service-icon{transform:scale(1.1) rotate(-5deg)}
+
+.service-name{font-size:13px;font-weight:600;color:var(--navy);line-height:1.4}
+[data-theme="dark"] .service-name{color:#c5ddf5}
+
+.service-card.wide{grid-column:1/-1;flex-direction:row;align-items:center;gap:18px}
+.service-card.wide .service-name{font-size:14px}
+
+/* ── CONTACT ── */
+.contact{background:var(--ivory)}
+
+.contact-box{
+  max-width:430px;margin:0 auto;
+  background:var(--white);border:1px solid var(--g2);
+  border-radius:26px;padding:36px 26px;box-shadow:var(--sh-md);
+  opacity:0;transform:translateY(26px);
+}
+.contact-header{text-align:center;margin-bottom:30px}
+.contact-tagline{font-size:14px;color:var(--g4);margin-top:7px;line-height:1.55}
+
+.contact-btns{display:flex;flex-direction:column;gap:12px}
+
+.contact-info{
+  display:flex;align-items:center;gap:13px;
+  padding:14px 16px;background:var(--g1);
+  border-radius:var(--r-sm);border:1px solid var(--g2);margin-top:12px;
+}
+.ci-icon{font-size:20px}
+.ci-text{font-size:13px;color:var(--g4);line-height:1.4}
+.ci-text strong{display:block;font-size:14px;color:var(--navy);font-weight:600}
+[data-theme="dark"] .ci-text strong{color:#c5ddf5}
+
+.add-contact-btn{
+  width:100%;margin-top:10px;
+  background:transparent;border:1.5px dashed var(--g3);
+  border-radius:var(--r-sm);padding:14px;color:var(--g4);
+  font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;
+  transition:all .25s var(--ease);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.add-contact-btn:hover{border-color:var(--navy);color:var(--navy);background:rgba(34,69,101,.04);transform:scale(1.01)}
+
+/* ── CTA FINAL ── */
+.cta-final{
+  background:linear-gradient(150deg,var(--navy-dk) 0%,var(--navy) 45%,var(--navy-lt) 100%);
+  padding:88px 24px;text-align:center;overflow:hidden;
+}
+.cta-final::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 50% at 50% 110%,rgba(255,255,255,.07) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cta-glow{
+  position:absolute;width:340px;height:340px;border-radius:50%;
+  background:rgba(255,255,255,.04);filter:blur(70px);
+  top:-100px;left:50%;transform:translateX(-50%);pointer-events:none;
+}
+.cta-final .section-label{color:rgba(255,255,255,.45);opacity:1}
+.cta-final .section-title{color:#fff;margin-bottom:12px}
+.cta-tagline{font-size:15px;color:rgba(255,255,255,.6);font-weight:300;
+  margin-bottom:38px;max-width:300px;margin-left:auto;margin-right:auto;line-height:1.65}
+.cta-btns{display:flex;flex-direction:column;gap:13px;max-width:328px;margin:0 auto}
+
+.btn-white{background:#fff;color:var(--navy);font-weight:700;box-shadow:0 10px 36px rgba(0,0,0,.22)}
+.btn-white:hover{box-shadow:0 16px 52px rgba(0,0,0,.32)}
+.btn-outline-white{
+  background:rgba(255,255,255,.1);backdrop-filter:blur(12px);
+  border:1.5px solid rgba(255,255,255,.25);color:#fff;
+}
+.btn-outline-white:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}
+.logo-img{
+  width:64px;
+  height:64px;
+  object-fit:contain;
+  position:relative;
+  z-index:2;
+}
+
+/* ── FOOTER ── */
+footer{background:var(--navy-dk);padding:28px 24px;text-align:center;position:relative;z-index:1}
+.footer-logo{font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:rgba(255,255,255,.82);letter-spacing:-.02em}
+.footer-sub{font-size:11px;color:rgba(255,255,255,.32);margin-top:7px;letter-spacing:.06em;text-transform:uppercase}
+.footer-sep{width:36px;height:2px;background:rgba(255,255,255,.15);border-radius:1px;margin:14px auto 6px}
+
+/* KEYFRAMES */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--navy);color:#fff;font-size:14px;font-weight:500;
+  padding:13px 26px;border-radius:100px;box-shadow:var(--sh-lg);z-index:9999;
+  transition:transform .4s var(--ease),opacity .4s;opacity:0;pointer-events:none;white-space:nowrap;
+}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* Visible state for scroll reveal */
+.revealed{opacity:1!important;transform:translateY(0)!important;transition:opacity .65s var(--ease),transform .65s var(--ease)}
+
+/* Delay utilities */
+.d1{transition-delay:.05s!important}.d2{transition-delay:.14s!important}
+.d3{transition-delay:.23s!important}.d4{transition-delay:.32s!important}.d5{transition-delay:.41s!important}
+</style>
+</head>
+<body>
+
+<button class="theme-btn" id="themeBtn" aria-label="Mode sombre/clair">🌙</button>
+<canvas id="bg-canvas"></canvas>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="geo geo-1"></div>
+  <div class="geo geo-2"></div>
+  <div class="geo geo-3"></div>
+<div class="logo-wrap">
+  <div class="logo-ring">
+    
+    <!-- 🔥 TON LOGO ICI -->
+    <img src="https://imgur.com/eDisCwZ.png" alt="AIS Publicity Logo" class="logo-img">
+
+  </div>
+</div>
+  <h1 class="brand-name">AIS Publicity</h1>
+  <p class="brand-sub">Agence de Communication &amp; Conseil Digital</p>
+  <div class="divider"></div>
+  <p class="hero-tagline">Stratégie · Design · Digital<br>Pour les marques qui veulent marquer.</p>
+
+  <div class="hero-ctas">
+    <a href="https://calendar.app.google/jJqryfeWkMeaGd158" class="btn btn-primary">
+      <span class="btn-icon">📅</span>
+      Réserver google meet
+    </a>
+    <a href="tel:+33745234127" class="btn btn-green">
+      <span class="btn-icon">📞</span>
+      Appeler maintenant
+    </a>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-dot"></div>
+    <span>Découvrir</span>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section class="services" id="services">
+  <div class="services-header">
+    <p class="section-label">Ce que nous faisons</p>
+    <h2 class="section-title">Nos expertises</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card d1"><div class="service-icon">🌐</div><p class="service-name">Création de sites web</p></div>
+    <div class="service-card d2"><div class="service-icon">🛍️</div><p class="service-name">Catalogue boutique numérique</p></div>
+    <div class="service-card d3"><div class="service-icon">📣</div><p class="service-name">Notoriété magasin</p></div>
+    <div class="service-card d4"><div class="service-icon">✦</div><p class="service-name">Logo & identité de marque</p></div>
+    <div class="service-card wide d5"><div class="service-icon">🎯</div><p class="service-name">Fidélisation & stratégie clients</p></div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="contact" id="contact">
+  <div class="contact-box" id="contactBox">
+    <div class="contact-header">
+      <p class="section-label">Nous contacter</p>
+      <h2 class="section-title" style="font-size:clamp(22px,5.5vw,32px)">Parlons de votre projet</h2>
+      <p class="contact-tagline">Réponse garantie sous 24h.<br>Premier échange offert, sans engagement.</p>
+    </div>
+    <div class="contact-btns">
+      <a href="tel:+33745234127" class="btn btn-green"><span class="btn-icon"></span>Appeler directement</a>
+      <a href="mailto:aispublicityfr@gmail.com" class="btn btn-primary"><span class="btn-icon"></span>Envoyer un email</a>
+    </div>
+    <div class="contact-info"><span class="ci-icon"></span><div class="ci-text"><strong>AIS Publicity</strong>Agence de Communication & Conseil Digital</div></div>
+    <div class="contact-info"><span class="ci-icon"></span><div class="ci-text"><strong>Téléphone</strong>+33 7 45 23 41 27 </div></div>
+    <div class="contact-info"><span class="ci-icon"></span><div class="ci-text"><strong>Email</strong>aispublicityfr@gmail.com</div></div>
+    <button class="add-contact-btn" id="addContactBtn"><span>👤</span>Ajouter à mes contacts</button>
+  </div>
+</section>
+
+<!-- ══ CTA FINAL ══ -->
+<section class="cta-final" id="cta">
+  <div class="cta-glow"></div>
+  <p class="section-label">Passez à l'action</p>
+  <h2 class="section-title">Transformons votre<br>présence digitale.</h2>
+  <p class="cta-tagline">Dès aujourd'hui, donnez à votre marque le visage qu'elle mérite vraiment.</p>
+  <div class="cta-btns">
+    <a href="https://calendar.app.google/jJqryfeWkMeaGd158" class="btn btn-white"><span class="btn-icon"></span>Réserver un appel stratégique</a>
+    <a href="tel:+33745234127" class="btn btn-outline-white"><span class="btn-icon"></span>Contact rapide</a>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-logo">AIS Publicity</p>
+  <div class="footer-sep"></div>
+  <p class="footer-sub">Agence de Communication & Conseil Digital</p>
+</footer>
+
+<div class="toast" id="toast">✅ Contact ajouté avec succès !</div>
+
+<script>
+/* THEME */
+const themeBtn=document.getElementById('themeBtn');
+const prefersDark=window.matchMedia('(prefers-color-scheme: dark)');
+function setTheme(dark){
+  document.documentElement.dataset.theme=dark?'dark':'light';
+  themeBtn.textContent=dark?'☀️':'🌙';
+}
+setTheme(prefersDark.matches);
+themeBtn.addEventListener('click',()=>setTheme(document.documentElement.dataset.theme==='light'));
+prefersDark.addEventListener('change',e=>setTheme(e.matches));
+
+/* CANVAS PARTICLES */
+const canvas=document.getElementById('bg-canvas');
+const ctx=canvas.getContext('2d');
+let W,H,pts=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+function mkPt(){return{x:Math.random()*W,y:Math.random()*H,r:Math.random()*2+.4,dx:(Math.random()-.5)*.28,dy:(Math.random()-.5)*.28,a:Math.random()*.45+.1}}
+for(let i=0;i<60;i++)pts.push(mkPt());
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  const dk=document.documentElement.dataset.theme==='dark';
+  const c=dk?'160,200,240':'34,69,101';
+  pts.forEach(p=>{
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(${c},${p.a})`;ctx.fill();
+    p.x+=p.dx;p.y+=p.dy;
+    if(p.x<0||p.x>W||p.y<0||p.y>H)Object.assign(p,mkPt(),{x:Math.random()*W,y:Math.random()*H});
+  });
+  pts.forEach((a,i)=>pts.slice(i+1).forEach(b=>{
+    const d=Math.hypot(a.x-b.x,a.y-b.y);
+    if(d<130){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+      ctx.strokeStyle=`rgba(${c},${.07*(1-d/130)})`;ctx.lineWidth=.5;ctx.stroke()}
+  }));
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* SCROLL REVEAL */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const el=entry.target;
+      if(el.classList.contains('service-card')){
+        document.querySelectorAll('.service-card').forEach((c,i)=>{
+          setTimeout(()=>c.classList.add('revealed'),i*90);
+        });
+      } else el.classList.add('revealed');
+      obs.unobserve(el);
+    }
+  });
+},{threshold:.14});
+document.querySelectorAll('.service-card,.contact-box').forEach(el=>obs.observe(el));
+
+/* ADD TO CONTACTS */
+document.getElementById('addContactBtn').addEventListener('click',()=>{
+  const v=['BEGIN:VCARD','VERSION:3.0','FN:AIS Publicity','ORG:AIS Publicity',
+    'TITLE:Agence de Communication & Conseil Digital',
+    'TEL;TYPE=WORK:+TELEPHONE_ICI','EMAIL:contact@ais-publicity.com',
+    'URL:WEBSITE_ICI','END:VCARD'].join('\r\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([v],{type:'text/vcard'}));
+  a.download='AIS-Publicity.vcf';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  const t=document.getElementById('toast');
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);
+});
+
+/* RIPPLE */
+const rippleCSS=document.createElement('style');
+rippleCSS.textContent='@keyframes rpl{to{transform:scale(30);opacity:0}}';
+document.head.appendChild(rippleCSS);
+document.querySelectorAll('.btn').forEach(btn=>{
+  btn.addEventListener('click',function(e){
+    const r=this.getBoundingClientRect();
+    const sp=document.createElement('span');
+    const x=e.clientX-r.left,y=e.clientY-r.top;
+    sp.style.cssText=`position:absolute;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);top:${y-4}px;left:${x-4}px;transform:scale(0);animation:rpl .55s ease-out;pointer-events:none;`;
+    this.appendChild(sp);setTimeout(()=>sp.remove(),560);
+  });
+});
+</script>
+</body>
+</html>
